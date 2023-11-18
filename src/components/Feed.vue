@@ -9,19 +9,20 @@
       "
     >
       <h2 class="p-3 text-lg font-bold hidden lg:block">Murmurs</h2>
-      <Tweet v-for="tweet in tweets" :key="tweet.id" :tweet="tweet" />
+      <!-- <Murmur v-for="murmur in murmurs" :key="murmur.id" :murmur="murmur" /> -->
+
     </div>
   </template>
   
   <script>
   // import { mapActions, mapState } from 'vuex'
-  import Tweet from '@/components/Murmur.vue'
+  import Murmur from '@/components/Murmur.vue'
   
   export default {
     name: 'Feed',
   
     components: {
-      Tweet,
+      Murmur,
     },
   
     computed: {

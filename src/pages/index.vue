@@ -4,12 +4,10 @@
     <main class="lg:flex lg:gap-4 lg:justify-center grid py-14 lg:pt-20">
       <div class="hidden lg:block">
         <Perfil />
-        <Trends />
       </div>
       <Feed />
       <div class="hidden lg:block">
-        <WhoToFollow />
-        <About />
+        <Users />
       </div>
       <AddTweet />
     </main>
@@ -19,10 +17,9 @@
 <script>
 import Nav from '@/components/Nav.vue'
 import Feed from '@/components/Feed.vue'
-import Trends from '@/components/Trend.vue'
 import About from '@/components/About.vue'
 import Perfil from '@/components/Prefil.vue'
-import WhoToFollow from '@/components/WhoToFollow.vue'
+import Users from '~/components/Users.vue'
 import AddTweet from '@/components/AddMurmur.vue'
 
 export default {
@@ -30,10 +27,9 @@ export default {
   components: {
     Nav,
     Feed,
-    Trends,
     About,
     Perfil,
-    WhoToFollow,
+    Users,
     AddTweet,
   },
 }

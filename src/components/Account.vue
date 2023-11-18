@@ -1,24 +1,5 @@
 <template>
     <div class="flex gap-4 pb-1">
-      <div
-        class="
-          w-12
-          md:w-14
-          h-12
-          md:h-14
-          flex
-          justify-center
-          items-center
-          flex-shrink-0
-        "
-      >
-        <img
-          :src="profileImage"
-          alt="profile image"
-          class="w-16 h-14 object-cover rounded-full"
-        />
-      </div>
-  
       <div class="w-full">
         <div class="flex items-center mb-3 justify-between">
           <div class="flex space-x-2 items-center">
@@ -68,10 +49,6 @@
         required: true,
       },
       user: {
-        type: String,
-        required: true,
-      },
-      profileImage: {
         type: String,
         required: true,
       },
