@@ -1,17 +1,9 @@
 import express from 'express'
-import mysql from 'mysql2'
 const app = express();
 
-//mysql setting
-const connection = mysql.createConnection({
-  host: 'localhost',
-  port: 3306,
-  user: 'docker',
-  password: 'docker',
-  database: 'test'
-});
-
-connection.connect();
+//db connection
+// const connection = require('./db/database');
+// connection.connect();
 
 //cors setting
 app.use((req, res, next) => {

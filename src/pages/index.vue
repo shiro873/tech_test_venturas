@@ -1,21 +1,40 @@
 <template>
-  <div>
-    <h1>Display the data obtained from API here</h1>
-    {{ data }}
+  <div class="home h-screen w-screen">
+    <Nav />
+    <main class="lg:flex lg:gap-4 lg:justify-center grid py-14 lg:pt-20">
+      <div class="hidden lg:block">
+        <Perfil />
+        <Trends />
+      </div>
+      <Feed />
+      <div class="hidden lg:block">
+        <WhoToFollow />
+        <About />
+      </div>
+      <AddTweet />
+    </main>
   </div>
 </template>
 
-<script lang="ts">
+<script>
+import Nav from '@/components/Nav.vue'
+import Feed from '@/components/Feed.vue'
+import Trends from '@/components/Trend.vue'
+import About from '@/components/About.vue'
+import Perfil from '@/components/Prefil.vue'
+import WhoToFollow from '@/components/WhoToFollow.vue'
+import AddTweet from '@/components/AddMurmur.vue'
+
 export default {
-  async asyncData({ $axios }: { $axios: any }): Promise<object> {
-    const res = await $axios.$post('/api/postTest')
-    console.log(res)
-    return {
-      data: res,
-    }
-  },
-  data() {
-    return {}
+  name: 'Home',
+  components: {
+    Nav,
+    Feed,
+    Trends,
+    About,
+    Perfil,
+    WhoToFollow,
+    AddTweet,
   },
 }
 </script>
