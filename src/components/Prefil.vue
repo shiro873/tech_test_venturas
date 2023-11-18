@@ -4,12 +4,12 @@
     class="bg-white border-gray-200 border rounded-2xl w-80 mb-4"
   >
     <div>
-      <!-- <p class="text-lg font-semibold mt-2">{{ me.name }}</p> -->
-      <p class="text-lg font-semibold mt-2 center">Name</p>
-      <!-- <p class="text-xs font-semibold text-gray-500">
+      <p class="text-lg font-semibold mt-2">{{ me.name }}</p>
+      <!-- <p class="text-lg font-semibold mt-2 center">Name</p> -->
+      <p class="text-xs font-semibold text-gray-500">
             {{ me.username }}
-          </p> -->
-      <p class="text-xs font-semibold text-gray-500">username</p>
+          </p>
+      <!-- <p class="text-xs font-semibold text-gray-500">username</p> -->
     </div>
     <div id="info" class="flex gap-3 border-gray-200 border-t px-4">
     </div>
@@ -17,9 +17,9 @@
       <p class="md:text-xs">MURMURS</p>
       <p class="md:text-xs">FOLLOWING</p>
       <p class="md:text-xs">FOLLOWERS</p>
-      <p class="md:text-xs font-bold">2.409</p>
-      <p class="md:text-xs font-bold">200</p>
-      <p class="md:text-xs font-bold">200</p>
+      <p class="md:text-xs font-bold">2</p>
+      <p class="md:text-xs font-bold">20</p>
+      <p class="md:text-xs font-bold">2</p>
     </div>
 
     <form id="newMurmur" class="w-full max-w-sm p-4">
@@ -42,7 +42,7 @@
           />
         </ResizableTextarea>
         <button
-          class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 bg-blueTT text-sm text-white py-1 px-4 rounded-3xl"
+          class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 bg-black text-sm text-white py-1 px-4 rounded-3xl"
           type="button"
           @click="create"
         >
