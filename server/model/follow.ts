@@ -1,5 +1,5 @@
 export interface Follow {
-    follower: string;
-    followee: string;
+    follower: number;
+    followee: number;
     status: boolean;
 }

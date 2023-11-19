@@ -1,4 +1,4 @@
 export interface Like {
-    murmurId: string,
-    userId: string
+    murmurId: number,
+    userId: number
 }

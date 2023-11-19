@@ -1,6 +1,6 @@
 export interface Murmur {
-    id?: string;
+    id?: number;
     content: string;
-    createdBy: string;
+    createdBy: number;
     createdAt: Date;
 }
