@@ -29,7 +29,7 @@ export async function createMurmur(req: Request, res: Response) {
 export async function deleteMurmur(req: Request, res: Response) {
     const murmurId = req.query?.murmurId;
     const userId = req.query?.userId;
-
+    console.log(murmurId, userId);
     const conn = await connect();
     await conn.query('DELETE FROM murmurs WHERE id = ? && createdby = ?', [murmurId, userId]);
     return res.json({
@@ -42,7 +42,7 @@ export async function likeMurmur(req: Request, res: Response) {
     const like: Like = req.body;
 
     const conn = await connect();
-    const newLike = await conn.query('INSERT INTO murmurs SET ?', [like]);
+    const newLike = await conn.query('INSERT INTO likes SET ?', [like]);
     console.log(newLike);
     return res.json({
         message: 'liked successfully',

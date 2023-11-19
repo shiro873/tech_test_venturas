@@ -9,13 +9,13 @@ import {
   likeMurmur,
 } from "../controller/murmur";
 
-router.route("/murmur")
+router.route("/")
     .post(createMurmur)
     .get(getMurmurs)
     .delete(deleteMurmur);
 
 
-router.route('/murmur/followed').get(getFollowedMurmurs);
-router.route('/murmur/like').post(likeMurmur);
+router.route('/followed').get(getFollowedMurmurs);
+router.route('/like').post(likeMurmur);
 
 export default router;
