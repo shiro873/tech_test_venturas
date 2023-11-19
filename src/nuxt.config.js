@@ -37,7 +37,14 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
+    '@pinia/nuxt',
+    {
+      autoImports: ['defineStore', 'acceptHMRUpdate'],
+    },
   ],
+  imports: {
+    dirs: ['store']
+  },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
