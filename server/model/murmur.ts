@@ -3,5 +3,4 @@ export interface Murmur {
     content: string;
     createdBy: string;
     createdAt: Date;
-    imageUrl: string;
 }
