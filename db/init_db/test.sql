@@ -1,3 +1,31 @@
+CREATE TABLE users (
+  id int NOT NULL AUTO_INCREMENT primary key,
+  username varchar(30),
+  email varchar(30),
+  password varchar(100),
+  fullname varchar(50),
+  dateOfBirth DATE
+);
+
+CREATE TABLE murmurs (
+  id int NOT NULL AUTO_INCREMENT primary key,
+  content varchar(255),
+  createdBy NOT NULL,
+  createdAt DATE NOT NULL DEFAULT (CURRENT_DATE)
+);
+
+CREATE TABLE likes (
+  murmurId int NOT NULL,
+  userId int NOT NULL
+);
+
+CREATE TABLE follows (
+  follower int NOT NULL,
+  followee int NOT NULL,
+  status tinyint(1)
+)
+
+
 CREATE TABLE test (
   id int NOT NULL AUTO_INCREMENT primary key,
   name varchar(30),
