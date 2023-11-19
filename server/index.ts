@@ -1,4 +1,6 @@
 import express from 'express'
+import userRoutes from './routes/user';
+import murmurRoutes from './routes/murmur';
 const app = express();
 
 //db connection
@@ -25,8 +27,10 @@ router.get('/api/getTest', (req, res) => {
 //Post example
 router.post('/api/postTest', (req, res) => {
   res.send({ hello: 'world' })
-})
+});
 
-app.use(router)
+app.use(router);
+app.use('/user', userRoutes);
+app.use('/murmur', murmurRoutes);
 
 app.listen(3001, () => { console.log('Example app listening on port 3001!') })

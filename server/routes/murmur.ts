@@ -17,3 +17,5 @@ router.route("/murmur")
 
 router.route('/murmur/followed').get(getFollowedMurmurs);
 router.route('/murmur/like').post(likeMurmur);
+
+export default router;
