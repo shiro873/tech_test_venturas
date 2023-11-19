@@ -91,7 +91,9 @@ export async function getFollowees(
   const conn = await connect();
   const { userId } = req.query;
   console.log(userId);
-  const [rows] = await conn.query('SELECT * FROM follows WHERE follower=?', [userId]);
+  const [rows] = await conn.query("SELECT * FROM follows WHERE follower=?", [
+    userId,
+  ]);
   const followees = (rows as RowDataPacket[])[0];
   return res.json(followees);
 }
@@ -101,7 +103,7 @@ export async function getFollowers(
   res: Response
 ): Promise<Response> {
   const conn = await connect();
-  const userId = req.query;
+  const { userId } = req.query;
 
   const [rows] = await conn.query("SELECT * FROM follows WHERE followee=?", [
     userId,
