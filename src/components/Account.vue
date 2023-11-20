@@ -57,7 +57,7 @@
         required: true
       }
     },
-  
+    methods: [],
     data() {
       return {
         following: false,
