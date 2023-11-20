@@ -119,7 +119,7 @@ export async function getUsers(
   const conn = await connect();
   const { userId } = req.query;
   // console.log(userId);
-  const [rows] = await conn.query("SELECT u.username, u.email, u.fullName, f.status FROM test.users u JOIN test.follows f ON u.id = f.followee WHERE f.follower=?", [
+  const [rows] = await conn.query("SELECT u.id, u.username, u.email, u.fullName, f.status FROM test.users u JOIN test.follows f ON u.id = f.followee WHERE f.follower=?", [
     userId,
   ]);
   const followers = (rows as RowDataPacket[]);

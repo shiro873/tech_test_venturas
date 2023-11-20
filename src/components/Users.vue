@@ -5,6 +5,7 @@
     <h3 class="pb-3 text-lg font-bold"></h3>
     <div v-for="öbject in list">
       <Account
+        :id="öbject.id"
         :username="öbject.username"
         :fullName="öbject.fullName"
         :status="öbject.status"
@@ -52,7 +53,6 @@ export default {
   },
   async fetch() {
     this.list = await fetch(`${allUserUrl}?userId=5`).then((res) => res.json())
-    console.log(this.list)
   },
 }
 </script>
