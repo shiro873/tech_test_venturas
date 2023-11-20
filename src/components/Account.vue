@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { followUserUrl } from '../constants/url';
+import { followUserUrl, unfollowUserUrl } from '../constants/url'
 
 export default {
   name: 'Account',
@@ -52,9 +52,9 @@ export default {
   },
   methods: {
     async followUser() {
-      this.status = !this.status;
+      this.status = !this.status
       console.log(this.status)
-      const response = await fetch(followUserUrl, {
+      const response = await fetch(this.status ? unfollowUserUrl : followUserUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

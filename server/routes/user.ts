@@ -16,7 +16,7 @@ router.route('/login').post(login);
 router.route('/followers').get(getFollowers);
 router.route('/followees').get(getFollowees);
 router.route('/follow').post(followUser);
-router.route('/unfollow').put(unfollowUser);
+router.route('/unfollow').post(unfollowUser);
 router.route('/').get(getUsers);
 
 export default router;
