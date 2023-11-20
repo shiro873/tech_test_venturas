@@ -3,9 +3,9 @@
       <div class="w-full">
         <div class="flex items-center mb-3 justify-between">
           <div class="flex space-x-2 items-center">
-            <p class="text-lg font-semibold">{{ name }}</p>
+            <p class="text-lg font-semibold">{{ fullName }}</p>
             <p class="text-lg md:text-xs font-semibold text-gray-500">
-              {{ user }}
+              {{ username }}
             </p>
           </div>
           <button class="font-semibold text-xl transform -translate-y-0.5">
@@ -27,13 +27,13 @@
             border border-transparent
           "
           :class="
-            following
+            status
               ? 'bg-white text-black border-gray-200'
               : 'bg-black text-white'
           "
-          @click="following = !following"
+          @click="status = !status"
         >
-          {{ following ? 'Following' : 'Follow' }}
+          {{ status ? 'Following' : 'Follow' }}
         </button>
       </div>
     </div>
@@ -44,14 +44,18 @@
     name: 'Account',
   
     props: {
-      name: {
+      username: {
         type: String,
         required: true,
       },
-      user: {
+      fullName: {
         type: String,
         required: true,
       },
+      status: {
+        type: Number,
+        required: true
+      }
     },
   
     data() {

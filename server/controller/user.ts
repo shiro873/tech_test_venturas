@@ -111,3 +111,18 @@ export async function getFollowers(
   const followers = (rows as RowDataPacket[])[0];
   return res.json(followers);
 }
+
+export async function getUsers(
+  req: Request,
+  res: Response
+): Promise<Response> {
+  const conn = await connect();
+  const { userId } = req.query;
+  // console.log(userId);
+  const [rows] = await conn.query("SELECT u.username, u.email, u.fullName, f.status FROM test.users u JOIN test.follows f ON u.id = f.followee WHERE f.follower=?", [
+    userId,
+  ]);
+  const followers = (rows as RowDataPacket[]);
+  console.log(followers)
+  return res.json(followers);
+}
