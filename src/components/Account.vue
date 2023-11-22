@@ -57,8 +57,8 @@ export default {
   },
   methods: {
     async followUser() {
-      this.status = !this.status
-      console.log(this.status);
+      this.status = !this.status;
+
       const response = await fetch(followUserUrl, {
         method: 'POST',
         headers: {
@@ -73,7 +73,6 @@ export default {
           },
         }),
       })
-      console.log(response)
     },
   },
   data() {

@@ -96,16 +96,16 @@ export async function followUser(req: Request, res: Response) {
   console.log("inside follow");
 
   const follow: any = req.body;
-  console.log(follow.data.id);
+  console.log(follow);
   const conn = await connect();
   // let userFollowResult = await conn.query('SELECT * FROM follows WHERE id=?', [follow.data.id])
   // let userFollowRow = userFollowResult as RowDataPacket[];
 
   let newFollow = await conn.query("UPDATE follows SET status=? WHERE id=?", [
-    follow.data.id,
+    follow.data.status,
     follow.data.id,
   ]);
-  console.log('newFollow', newFollow, follow.data.id);
+  // console.log('newFollow', newFollow, follow.data.id);
 
   res.json({
     successful: true,

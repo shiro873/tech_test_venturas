@@ -47,15 +47,14 @@ export default {
   },
   methods: {
     nextPage() {
-      this.page = Math.min(page + 1, totalPages)
+      this.page = Math.min(this.page + 1, totalPages)
     },
     prevPage() {
-      this.page = Math.max(page - 1, 1)
+      this.page = Math.max(this.page - 1, 1)
     },
   },
   async fetch() {
     this.list = await fetch(`${allUserUrl}?userId=1`).then((res) => res.json())
-    console.log(this.list);
   },
 }
 </script>
