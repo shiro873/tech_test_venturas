@@ -3,12 +3,14 @@
     class="flex flex-col bg-white gap-3 border-gray-200 border rounded-2xl p-4 w-80 mb-4"
   >
     <h3 class="pb-3 text-lg font-bold"></h3>
-    <div v-for="öbject in list">
+    <div v-for="object in list">
+      <!-- <button type="button" @click="">"object.followId"</button> -->
       <Account
-        :id="öbject.id"
-        :username="öbject.username"
-        :fullName="öbject.fullName"
-        :status="öbject.status"
+        :id="object.id"
+        :username="object.username"
+        :fullName="object.fullName"
+        :status="object.status"
+        :followId="object.followId"
       />
     </div>
     <div>
@@ -52,7 +54,8 @@ export default {
     },
   },
   async fetch() {
-    this.list = await fetch(`${allUserUrl}?userId=5`).then((res) => res.json())
+    this.list = await fetch(`${allUserUrl}?userId=1`).then((res) => res.json())
+    console.log(this.list);
   },
 }
 </script>

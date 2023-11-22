@@ -10,16 +10,18 @@ CREATE TABLE users (
 CREATE TABLE murmurs (
   id int NOT NULL AUTO_INCREMENT primary key,
   content varchar(255),
-  createdBy NOT NULL,
-  createdAt DATE NOT NULL DEFAULT (CURRENT_DATE)
+  createdBy int NOT NULL,
+  createdAt DATE
 );
 
 CREATE TABLE likes (
+  id int NOT NULL AUTO_INCREMENT primary key,
   murmurId int NOT NULL,
   userId int NOT NULL
 );
 
 CREATE TABLE follows (
+  id int NOT NULL AUTO_INCREMENT primary key,
   follower int NOT NULL,
   followee int NOT NULL,
   status tinyint(1)

@@ -49,21 +49,27 @@ export default {
       type: Number,
       required: true,
     },
+    followId: {
+      type: Number,
+      required: true,
+      default: null
+    }
   },
   methods: {
     async followUser() {
       this.status = !this.status
-      console.log(this.status)
-      const response = await fetch(this.status ? unfollowUserUrl : followUserUrl, {
+      console.log(this.status);
+      const response = await fetch(followUserUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           data: {
-            follower: 5,
+            follower: 1,
             followee: this.id,
             status: this.status,
+            id: this.followId,
           },
         }),
       })
@@ -72,7 +78,7 @@ export default {
   },
   data() {
     return {
-      // following: false,
+      
     }
   },
 }
