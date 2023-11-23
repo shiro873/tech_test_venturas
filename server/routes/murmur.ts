@@ -7,6 +7,7 @@ import {
   createMurmur,
   deleteMurmur,
   likeMurmur,
+  getUserMurmurs
 } from "../controller/murmur";
 
 router.route("/")
@@ -17,5 +18,6 @@ router.route("/")
 
 router.route('/followed').get(getFollowedMurmurs);
 router.route('/like').post(likeMurmur);
+router.route('/user').get(getUserMurmurs);
 
 export default router;

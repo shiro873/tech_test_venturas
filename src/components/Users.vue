@@ -55,6 +55,7 @@ export default {
   },
   async fetch() {
     this.list = await fetch(`${allUserUrl}?userId=1`).then((res) => res.json())
+    // console.log(this.list)
   },
 }
 </script>

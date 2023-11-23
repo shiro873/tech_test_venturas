@@ -5,10 +5,10 @@ import {
     createUser,
     login,
     followUser,
-    // unfollowUser,
     getFollowees,
     getFollowers,
-    getUsers
+    getUsers,
+    getUserDetails
  } from "../controller/user";
 
 router.route('/signup').post(createUser);
@@ -17,5 +17,6 @@ router.route('/followers').get(getFollowers);
 router.route('/followees').get(getFollowees);
 router.route('/follow').post(followUser);
 router.route('/').get(getUsers);
+router.route('/profile').get(getUserDetails);
 
 export default router;

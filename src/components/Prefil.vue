@@ -3,7 +3,7 @@
     id="perfil"
     class="bg-white border-gray-200 border rounded-2xl w-80 mb-4"
   >
-    <div>
+    <div class="grid grid-cols-3 px-8 text-center gap-2">
       <p class="text-lg font-semibold mt-2">{{ me.name }}</p>
       <!-- <p class="text-lg font-semibold mt-2 center">Name</p> -->
       <p class="text-xs font-semibold text-gray-500">
@@ -17,9 +17,9 @@
       <p class="md:text-xs">MURMURS</p>
       <p class="md:text-xs">FOLLOWING</p>
       <p class="md:text-xs">FOLLOWERS</p>
-      <p class="md:text-xs font-bold">2</p>
-      <p class="md:text-xs font-bold">20</p>
-      <p class="md:text-xs font-bold">2</p>
+      <p class="md:text-xs font-bold">{{userMurmurs.length}}</p>
+      <p class="md:text-xs font-bold">{{followee.following}}</p>
+      <p class="md:text-xs font-bold">{{follower.follower ? follower.follower: 0}}</p>
     </div>
 
     <form id="newMurmur" class="w-full max-w-sm p-4">
@@ -55,7 +55,13 @@
 
 <script>
 // import { mapActions, mapState } from 'vuex'
-import ResizableTextarea from '@/components/ResizableTextarea'
+import ResizableTextarea from '@/components/ResizableTextarea';
+import {
+  getFolloweesUrl,
+  getFollowersUrl,
+  getUserDetailsUrl,
+  userMurmurUrl
+} from '../constants/url';
 
 export default {
   name: 'Perfil',
@@ -66,9 +72,11 @@ export default {
 
   data() {
     return {
-      murmurs: [],
+      userMurmurs: [],
       text: '',
-      me: {},
+      me: 0,
+      follower: 0,
+      followee: 0
     }
   },
 
@@ -85,12 +93,19 @@ export default {
   methods: {
     // ...mapActions(['addTweet']),
 
-    create() {
-      if (this.text.trim().length > 0) {
-        this.addTweet(this.text)
-        this.text = ''
-      }
-    },
+    // create() {
+    //   if (this.text.trim().length > 0) {
+    //     this.addTweet(this.text)
+    //     this.text = ''
+    //   }
+    // },
+  },
+  async fetch() {
+    this.followee = await fetch(`${getFolloweesUrl}?userId=1`).then((res) => res.json());
+    this.follower = await fetch(`${getFollowersUrl}?userId=1`).then((res) => res.json());
+    this.me = await fetch(`${getUserDetailsUrl}?userId=1`).then((res) => res.json());
+    this.userMurmurs = await fetch(`${userMurmurUrl}?userId=1`).then((res) => res.json());
+    console.log(this.me, this.follower, this.followee, this.userMurmurs);
   },
 }
 </script>

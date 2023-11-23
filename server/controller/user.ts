@@ -96,7 +96,7 @@ export async function followUser(req: Request, res: Response) {
   console.log("inside follow");
 
   const follow: any = req.body;
-  console.log(follow);
+  // console.log(follow);
   const conn = await connect();
   // let userFollowResult = await conn.query('SELECT * FROM follows WHERE id=?', [follow.data.id])
   // let userFollowRow = userFollowResult as RowDataPacket[];
@@ -119,9 +119,10 @@ export async function getFollowees(
 ): Promise<Response> {
   const conn = await connect();
   const { userId } = req.query;
-  console.log(userId);
-  const [rows] = await conn.query("SELECT * FROM follows WHERE follower=?", [
+  // console.log(userId);
+  const [rows] = await conn.query("SELECT COUNT(*) as following FROM follows WHERE follower=? AND status=?", [
     userId,
+    true
   ]);
   const followees = (rows as RowDataPacket[])[0];
   return res.json(followees);
@@ -134,8 +135,9 @@ export async function getFollowers(
   const conn = await connect();
   const { userId } = req.query;
 
-  const [rows] = await conn.query("SELECT * FROM follows WHERE follower=?", [
+  const [rows] = await conn.query("SELECT COUNT(*) as followers FROM follows WHERE followee=? AND status=?", [
     userId,
+    true
   ]);
   const followers = (rows as RowDataPacket[])[0];
   return res.json(followers);
@@ -150,6 +152,23 @@ export async function getUsers(req: Request, res: Response): Promise<Response> {
     [userId]
   );
   const followers = rows as RowDataPacket[];
-  console.log(followers);
+  // console.log(followers);
   return res.json(followers);
+}
+
+export async function getUserDetails(req: Request, res: Response) {
+  const { id } = req.query;
+  const conn = await connect();
+  console.log("id", req.query);
+  const rows = await conn.query(
+    `
+    SELECT u.id, u.username, u.fullName, u.dateOfBirth, u.email
+    FROM test.users u
+    WHERE u.id=1;
+    `,
+    [id]
+  );
+  const userDetails = (rows as RowDataPacket[])[0];
+  console.log("userDetails", userDetails);
+  return res.json(userDetails[0]);
 }
