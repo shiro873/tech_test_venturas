@@ -22,6 +22,16 @@
       >
         {{ status ? 'Following' : 'Follow' }}
       </button>
+      <button
+        type="button"
+        class="mb-2 p-1 px-3 text-xs rounded-full duration-100 transition-colors ease-in-out delay-75 border border-transparent"
+        :class="
+          'bg-black text-white'
+        "
+        @click="setUser"
+      >
+        Show Profile
+      </button>
     </div>
   </div>
 </template>
@@ -74,6 +84,10 @@ export default {
         }),
       })
     },
+    setUser() {
+      console.log(this.id);
+      localStorage.setItem('selectedUser', this.id);
+    }
   },
   data() {
     return {
