@@ -22,14 +22,14 @@
       <div class="w-full">
         <div class="flex md:space-x-2 space-x-1 items-baseline">
           <p class="md:text-base text-sm font-semibold w-max">
-            {{ murmur.fullName }}
+            {{ userMurmur.fullName }}
           </p>
           <p class="text-xs font-semibold text-gray-500">
-            {{ murmur.username }}
+            {{ userMurmur.username }}
           </p>
         </div>
         <p class="mb-2 break-all">
-          {{ murmur.content }}
+          {{ userMurmur.content }}
         </p>
         <!-- <img
           v-if="murmur.postImage"
@@ -68,9 +68,7 @@
                 text-xs
               "
             >
-              <!-- <HeartIcon class="lg:h-3 lg:w-3 h-4 w-4 lsg:m-0" fill="currentColor" /> -->
-  
-              <span class="flex hidden lg:block"> Like {{murmur.likes}} </span>
+              <span class="flex hidden lg:block"> Delete </span>
             </button>
   
             <!-- <button
@@ -176,7 +174,7 @@
   } from '@vue-hero-icons/outline'
   
   export default {
-    name: 'Murmur',
+    name: 'UserMurmur',
   
     components: {
       ReplyIcon,
@@ -186,7 +184,7 @@
     },
   
     props: {
-      murmur: {
+      userMurmur: {
         type: Object,
         required: true,
       },

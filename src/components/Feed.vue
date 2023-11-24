@@ -54,7 +54,7 @@ export default {
   },
   async fetch() {
     this.murmurList = await fetch(`${murmurUrl}?id=1`).then((res) => res.json());
-    // console.log('murmur list ---', this.murmurList);
+    // console.log('murmur list ---', this.murmurList);update mac os version
   },
 }
 </script>

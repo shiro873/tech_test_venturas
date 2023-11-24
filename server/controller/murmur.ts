@@ -40,7 +40,7 @@ export async function getFollowedMurmurs(req: Request, res: Response) {
 export async function createMurmur(req: Request, res: Response) {
   const murmur: Murmur = req.body;
   const conn = await connect();
-  const newMurmur = await conn.query("INSERT INTO murmurs (content, createdBy, createdAt) VALUES (?, ?, NOW())", [murmur.content, murmur.createdBy]);
+  const newMurmur = await conn.query("INSERT INTO murmurs (content, createdBy, createdAt) VALUES (?, ?, SYSDATE())", [murmur.content, murmur.createdBy]);
   console.log(newMurmur);
   return res.json({
     message: "Successfully created murmur",

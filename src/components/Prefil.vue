@@ -51,12 +51,20 @@
         </button>
       </div>
     </form>
+    <div v-for="item in userMurmurs">
+      <UserMurmur :userMurmur="item" />
+    </div>
+    <div class="p-3 text-lg font-bold hidden lg:block">
+      <button type="button" @click="nextPage">Next</button>
+      <button type="button" @click="prevPage">Previous</button>
+    </div>
   </div>
 </template>
 
 <script>
 // import { mapActions, mapState } from 'vuex'
-import ResizableTextarea from '@/components/ResizableTextarea'
+import ResizableTextarea from '@/components/ResizableTextarea';
+import UserMurmur from '@/components/UserMurmur.vue';
 import {
   getFolloweesUrl,
   getFollowersUrl,
@@ -67,11 +75,10 @@ import {
 
 export default {
   name: 'Perfil',
-
   components: {
     ResizableTextarea,
+    UserMurmur
   },
-
   data() {
     return {
       userMurmurs: [],
@@ -79,19 +86,21 @@ export default {
       me: 0,
       follower: 0,
       followee: 0,
+      pageNumber: 1,
+      pagelength: 3,
     }
   },
-
   computed: {
-    // ...mapState(['user'])
+    currentPage() {
+      return this.list.slice(
+        (this.pageNumber - 1) * this.pagelength,
+        this.pageNumber * this.pagelength
+      )
+    },
+    totalPages() {
+      return Math.ceil(this.userMurmurs.length / this.pagelength)
+    },
   },
-
-  created() {
-    // this.$axios.$get(`/api/users/${this.user.id}`).then((res) => {
-    //   this.me = res.user
-    // })
-  },
-
   methods: {
     async create() {
       if (this.text.trim().length > 0) {
@@ -106,12 +115,18 @@ export default {
             createdBy: 1,
           }), // Convert data to JSON format
         })
-        console.log('response ', response);
+        console.log('response ', response)
         this.text = ''
       }
       this.userMurmurs = await fetch(`${userMurmurUrl}?userId=1`).then((res) =>
         res.json()
       )
+    },
+    nextPage() {
+      this.pageNumber = Math.min(this.pageNumber + 1, this.pagelength)
+    },
+    prevPage() {
+      this.pageNumber = Math.max(this.pageNumber - 1, 1)
     },
   },
   async fetch() {
