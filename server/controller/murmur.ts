@@ -67,7 +67,7 @@ export async function likeMurmur(req: Request, res: Response) {
 
   const conn = await connect();
   const newLike = await conn.query("INSERT INTO likes SET ?", [like]);
-  // console.log(newLike);
+  console.log(newLike);
   return res.json({
     message: "liked successfully",
     status: 200,

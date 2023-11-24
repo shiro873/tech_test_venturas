@@ -30,6 +30,11 @@ export default {
     pageSizes: 10,
     murmurList: [],
   }),
+  created() {
+    // Listen for the event emitted from ComponentA to update ComponentB
+    this.$root.$on('likedMurmur', (data) =>  this.fetchMurmur(data));
+
+  },
   computed: {
     currentPage() {
       return this.list.slice(
@@ -41,9 +46,6 @@ export default {
       return Math.ceil(this.murmurList.length / this.pageSizes)
     },
   },
-  created() {
-    // this.loadFeed()
-  },
   methods: {
     nextPage() {
       this.pageNo = Math.min(this.pageNo + 1, totalPages)
@@ -51,6 +53,10 @@ export default {
     prevPage() {
       this.pageNo = Math.max(this.pageNo - 1, 1)
     },
+    async fetchMurmur(data) {
+      console.log("data", data)
+      this.murmurList = await fetch(`${murmurUrl}?id=1`).then((res) => res.json());
+    }
   },
   async fetch() {
     this.murmurList = await fetch(`${murmurUrl}?id=1`).then((res) => res.json());

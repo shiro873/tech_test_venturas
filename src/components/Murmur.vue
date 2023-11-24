@@ -16,10 +16,10 @@
         <div class="flex space-x-2 flex-wrap gap-6 lg:gap-0">
           <button
             type="button"
+            @click="like"
             class="flex gap-1 items-center text-gray-500 hover:text-gray-800 active:text-gray-800 transition duration-100 text-xs"
           >
             <!-- <HeartIcon class="lg:h-3 lg:w-3 h-4 w-4 lsg:m-0" fill="currentColor" /> -->
-
             <span class="flex hidden lg:block"> Like {{ murmur.likes }} </span>
           </button>
         </div>
@@ -36,6 +36,7 @@ import {
   DotsHorizontalIcon,
   HeartIcon,
 } from '@vue-hero-icons/outline'
+import { likeMurmurUrl } from '../constants/url'
 
 export default {
   name: 'Murmur',
@@ -58,12 +59,22 @@ export default {
   computed: {},
 
   methods: {
-    like() {
-      // this.addFavorite(this.murmur.id)
+    async like() {
+      const response = await fetch(likeMurmurUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Specify the content type if sending JSON data
+          // Add other necessary headers if required
+        },
+        body: JSON.stringify({
+          murmurId: this.murmur.id,
+          userId: 1,
+        }), // Convert data to JSON format
+      });
+      console.log(response);
+      this.$root.$emit('likedMurmur', this.murmur.id);
     },
-    unlike() {
-      // this.removeFavorite(this.isFavorite.id)
-    },
+    unlike() {},
   },
 }
 </script>
