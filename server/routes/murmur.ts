@@ -12,9 +12,8 @@ import {
 
 router.route("/")
     .post(createMurmur)
-    .get(getMurmurs)
-    .delete(deleteMurmur);
-
+    .get(getMurmurs);
+router.route('/delete').post(deleteMurmur);
 
 router.route('/followed').get(getFollowedMurmurs);
 router.route('/like').post(likeMurmur);

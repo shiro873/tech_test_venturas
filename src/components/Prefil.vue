@@ -63,8 +63,8 @@
 
 <script>
 // import { mapActions, mapState } from 'vuex'
-import ResizableTextarea from '@/components/ResizableTextarea';
-import UserMurmur from '@/components/UserMurmur.vue';
+import ResizableTextarea from '@/components/ResizableTextarea'
+import UserMurmur from '@/components/UserMurmur.vue'
 import {
   getFolloweesUrl,
   getFollowersUrl,
@@ -77,7 +77,7 @@ export default {
   name: 'Perfil',
   components: {
     ResizableTextarea,
-    UserMurmur
+    UserMurmur,
   },
   data() {
     return {
@@ -100,6 +100,10 @@ export default {
     totalPages() {
       return Math.ceil(this.userMurmurs.length / this.pagelength)
     },
+  },
+  created() {
+    // Listen for the event emitted from ComponentA to update ComponentB
+    this.$root.$on('deletePost', (data) => this.refetchPost(data))
   },
   methods: {
     async create() {
@@ -127,6 +131,11 @@ export default {
     },
     prevPage() {
       this.pageNumber = Math.max(this.pageNumber - 1, 1)
+    },
+    async refetchPost() {
+      this.userMurmurs = await fetch(`${userMurmurUrl}?userId=1`).then((res) =>
+        res.json()
+      )
     },
   },
   async fetch() {

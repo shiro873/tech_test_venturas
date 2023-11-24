@@ -169,6 +169,6 @@ export async function getUserDetails(req: Request, res: Response) {
     [id]
   );
   const userDetails = (rows as RowDataPacket[])[0];
-  console.log("userDetails", userDetails);
+  // console.log("userDetails", userDetails);
   return res.json(userDetails[0]);
 }

@@ -41,7 +41,7 @@ export async function createMurmur(req: Request, res: Response) {
   const murmur: Murmur = req.body;
   const conn = await connect();
   const newMurmur = await conn.query("INSERT INTO murmurs (content, createdBy, createdAt) VALUES (?, ?, SYSDATE())", [murmur.content, murmur.createdBy]);
-  console.log(newMurmur);
+  // console.log(newMurmur);
   return res.json({
     message: "Successfully created murmur",
     status: 200,
@@ -50,12 +50,11 @@ export async function createMurmur(req: Request, res: Response) {
 
 export async function deleteMurmur(req: Request, res: Response) {
   const murmurId = req.query?.murmurId;
-  const userId = req.query?.userId;
-  // console.log(murmurId, userId);
+  // const userId = req.query?.userId;
+  console.log(murmurId);
   const conn = await connect();
-  await conn.query("DELETE FROM murmurs WHERE id = ? && createdby = ?", [
+  await conn.query("DELETE FROM murmurs WHERE id = ?", [
     murmurId,
-    userId,
   ]);
   return res.json({
     message: "Murmur Deleted",
