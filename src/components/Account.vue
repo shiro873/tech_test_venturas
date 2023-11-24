@@ -85,8 +85,8 @@ export default {
       })
     },
     setUser() {
-      console.log(this.id);
       localStorage.setItem('selectedUser', this.id);
+      this.$root.$emit('selectedUser', this.id);
     }
   },
   data() {

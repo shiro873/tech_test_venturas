@@ -60,27 +60,21 @@ export default {
       userFollowee: 0,
       pageNumber: 1,
       pagelength: 3,
-      selectedUserId: 0
+      selectedUserId: 0,
     }
   },
   async mounted() {
-    let id = localStorage.getItem('selectedUser');
-    console.log('id', id);
-    if(id) {
-        this.selectedUserId = id;
+    let id = localStorage.getItem('selectedUser')
+    console.log('id', id)
+    if (id) {
+      this.selectedUserId = id
+      this.fetchData(id);
     }
-    this.userFollowee = await fetch(`${getFolloweesUrl}?userId=${id}`).then((res) =>
-      res.json()
-    )
-    this.userFollower = await fetch(`${getFollowersUrl}?userId=${id}`).then((res) =>
-      res.json()
-    )
-    this.me = await fetch(`${getUserDetailsUrl}?userId=${id}`).then((res) =>
-      res.json()
-    )
-    this.userMurmurList = await fetch(`${userMurmurUrl}?userId=${id}`).then((res) =>
-      res.json()
-    )
+  },
+  created() {
+    // Listen for the event emitted from ComponentA to update ComponentB
+    this.$root.$on('selectedUser', (data) =>  this.fetchData(data));
+
   },
   computed: {
     currentPage() {
@@ -100,6 +94,24 @@ export default {
     prevPage() {
       this.pageNumber = Math.max(this.pageNumber - 1, 1)
     },
+    async fetchData(data) {
+      this.userFollowee = await fetch(`${getFolloweesUrl}?userId=${data}`).then(
+        (res) => res.json()
+      )
+      this.userFollower = await fetch(`${getFollowersUrl}?userId=${data}`).then(
+        (res) => res.json()
+      )
+      this.me = await fetch(`${getUserDetailsUrl}?userId=${data}`).then((res) =>
+        res.json()
+      )
+      this.userMurmurList = await fetch(`${userMurmurUrl}?userId=${data}`).then(
+        (res) => res.json()
+      )
+    },
+  },
+  beforeDestroy() {
+    // Ensure to clean up the event listener to prevent memory leaks
+    this.$root.$off('selectedUser')
   },
 }
 </script>
