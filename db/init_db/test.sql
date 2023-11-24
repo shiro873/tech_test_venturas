@@ -11,7 +11,7 @@ CREATE TABLE murmurs (
   id int NOT NULL AUTO_INCREMENT primary key,
   content varchar(255),
   createdBy int NOT NULL,
-  createdAt DATE
+  createdAt DATETIME
 );
 
 CREATE TABLE likes (
