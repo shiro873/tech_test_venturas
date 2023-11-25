@@ -1,17 +1,11 @@
 import express from 'express'
-import mysql from 'mysql2'
+import userRoutes from './routes/user';
+import murmurRoutes from './routes/murmur';
 const app = express();
 
-//mysql setting
-const connection = mysql.createConnection({
-  host: 'localhost',
-  port: 3306,
-  user: 'docker',
-  password: 'docker',
-  database: 'test'
-});
-
-connection.connect();
+//db connection
+// const connection = require('./db/database');
+// connection.connect();
 
 //cors setting
 app.use((req, res, next) => {
@@ -33,8 +27,10 @@ router.get('/api/getTest', (req, res) => {
 //Post example
 router.post('/api/postTest', (req, res) => {
   res.send({ hello: 'world' })
-})
+});
 
-app.use(router)
+app.use(router);
+app.use('/user', userRoutes);
+app.use('/murmur', murmurRoutes);
 
 app.listen(3001, () => { console.log('Example app listening on port 3001!') })
