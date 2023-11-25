@@ -11,8 +11,39 @@ export async function createUser(req: Request, res: Response) {
   const password = await bcrypt.hash(user.password, 10);
   user.password = password;
   const conn = await connect();
+  const existUserResult = await conn.query(
+    "SELECT * FROM users WHERE email = ?",
+    [user.email]
+  );
+  const existUserRow: any = existUserResult as RowDataPacket[];
+  // console.log('exist user', existUserRow[0]);
 
-  const newUser = await conn.query("INSERT INTO users SET ?", [user]);
+  if (existUserRow[0].length > 0) {
+    return res.json({
+      message: "user already registered",
+      status: 401,
+    });
+  }
+
+  const newUserRow = await conn.query("INSERT INTO users SET ?", [user]);
+  let newUser: any = newUserRow as RowDataPacket[];
+  // console.log('new user', row[0].insertId);
+  let userRows = await conn.query("SELECT * FROM users WHERE id != ?", [
+    newUser[0].insertId,
+  ]);
+  let userList = userRows as RowDataPacket[];
+  // console.log('users list ', userList[0]);
+  userList[0].map(async (it: User) => {
+    await conn.query(
+      "INSERT INTO follows (follower, followee, status) VALUES (?, ?, ?)",
+      [newUser[0].insertId, it.id, false]
+    );
+    await conn.query(
+      "INSERT INTO follows (follower, followee, status) VALUES (?, ?, ?)",
+      [it.id, newUser[0].insertId, false]
+    );
+  });
+
   const token = jwt.sign(
     {
       email: user.email,
@@ -62,24 +93,22 @@ export async function login(req: Request, res: Response) {
 }
 
 export async function followUser(req: Request, res: Response) {
-  const follow: Follow = req.body;
-  const conn = await connect();
-  const newFollow = await conn.query("INSERT INTO follows SET ?", [follow]);
-  res.json({
-    message: "user followerd successfully",
-    status: 200,
-  });
-}
+  console.log("inside follow");
 
-export async function unfollowUser(req: Request, res: Response) {
-  const follow: Follow = req.body;
+  const follow: any = req.body;
+  // console.log(follow);
   const conn = await connect();
-  const newFollow = await conn.query(
-    "UPDATE follows SET ? WHERE follower=? && followee=?",
-    [follow, follow.follower, follow.followee]
-  );
+  // let userFollowResult = await conn.query('SELECT * FROM follows WHERE id=?', [follow.data.id])
+  // let userFollowRow = userFollowResult as RowDataPacket[];
+
+  let newFollow = await conn.query("UPDATE follows SET status=? WHERE id=?", [
+    follow.data.status,
+    follow.data.id,
+  ]);
+  // console.log('newFollow', newFollow, follow.data.id);
+
   res.json({
-    message: "user unfollowerd successfully",
+    successful: true,
     status: 200,
   });
 }
@@ -90,9 +119,10 @@ export async function getFollowees(
 ): Promise<Response> {
   const conn = await connect();
   const { userId } = req.query;
-  console.log(userId);
-  const [rows] = await conn.query("SELECT * FROM follows WHERE follower=?", [
+  // console.log(userId);
+  const [rows] = await conn.query("SELECT COUNT(*) as following FROM follows WHERE follower=? AND status=?", [
     userId,
+    true
   ]);
   const followees = (rows as RowDataPacket[])[0];
   return res.json(followees);
@@ -105,9 +135,40 @@ export async function getFollowers(
   const conn = await connect();
   const { userId } = req.query;
 
-  const [rows] = await conn.query("SELECT * FROM follows WHERE followee=?", [
+  const [rows] = await conn.query("SELECT COUNT(*) as followers FROM follows WHERE followee=? AND status=?", [
     userId,
+    true
   ]);
   const followers = (rows as RowDataPacket[])[0];
   return res.json(followers);
+}
+
+export async function getUsers(req: Request, res: Response): Promise<Response> {
+  const conn = await connect();
+  const { userId } = req.query;
+  // console.log(userId);
+  const [rows] = await conn.query(
+    "SELECT u.id, u.username, u.email, u.fullName, f.status, f.id as followId FROM test.users u JOIN test.follows f ON u.id = f.followee WHERE f.follower=?",
+    [userId]
+  );
+  const followers = rows as RowDataPacket[];
+  // console.log(followers);
+  return res.json(followers);
+}
+
+export async function getUserDetails(req: Request, res: Response) {
+  const { id } = req.query;
+  const conn = await connect();
+  console.log("id", req.query);
+  const rows = await conn.query(
+    `
+    SELECT u.id, u.username, u.fullName, u.dateOfBirth, u.email
+    FROM test.users u
+    WHERE u.id=1;
+    `,
+    [id]
+  );
+  const userDetails = (rows as RowDataPacket[])[0];
+  // console.log("userDetails", userDetails);
+  return res.json(userDetails[0]);
 }

@@ -9,7 +9,7 @@
       <div class="hidden lg:block">
         <Users />
       </div>
-      <AddTweet />
+      <OtherPerfil />
     </main>
   </div>
 </template>
@@ -21,6 +21,7 @@ import About from '@/components/About.vue'
 import Perfil from '@/components/Prefil.vue'
 import Users from '~/components/Users.vue'
 import AddTweet from '@/components/AddMurmur.vue'
+import OtherPerfil from '@/components/OtherPerfil.vue'
 
 export default {
   name: 'Home',
